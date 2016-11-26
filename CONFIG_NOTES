@@ -1,0 +1,39 @@
+################################################
+#												#
+#	Table of Contents							#
+#												#
+#################################################	
+1. Changes Made to Linux
+2. Changes Made to Eclipse
+3. Entityx
+
+#
+#		1. Changes Made to Linux
+#
+
+#	Added /usr/local/lib to the end of /etc/ld.so.conf
+Entityx installs there so this just tells the linker where to look when running
+the exe.
+ 
+#
+#		2. Changes Made to Eclipse
+#
+
+#	Added SFML and entityx Libraries to Linker
+Go to:
+	Project -> Properties -> C/C++ Build -> Settings -> C++ linker -> Libraries
+Then add libraries by their name like "sfml-graphics" (no -l)
+
+#	-std=c++14 flag added to compiler
+Go to: 
+	Project -> Properties -> C/C++ Build -> Settings -> C++ Compiler -> Dialect
+Then add "-std=c++14" to other dialect flags
+
+#
+#		3. Entityx
+#
+
+Steps to install:
+1. git clone https://github.com/alecthomas/entityx
+2. replace catch.hpp in /3rdparty with the current header from github
+3. mkdir build | cd build | cmake.. | make | sudo make install
