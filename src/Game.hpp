@@ -10,13 +10,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <entityx/entityx.h>
+#include "Renderer.hpp"
+#include "Components.hpp"
 namespace ex = entityx;
 class Game{
 public:
 
 	sf::RenderWindow window;
-	ex::EntityX world;
-
 };
 
 
