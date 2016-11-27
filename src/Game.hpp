@@ -16,7 +16,18 @@ namespace ex = entityx;
 class Game{
 public:
 
+	void init(){
+
+	}
+
+	void run();
+
+private:
+
 	sf::RenderWindow window;
+	Renderer renderer;
+	int windowHeight = 800;
+	int windowWidth = 600;
 };
 
 

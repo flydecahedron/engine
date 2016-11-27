@@ -13,6 +13,9 @@ class Renderer{
 public:
 	Renderer(sf::RenderWindow& renderWindow):window(renderWindow){}
 
+	void draw(const sf::Drawable& drawable);
+	void drawBegin();
+	void drawEnd();
 
 private:
 	sf::RenderWindow& window;

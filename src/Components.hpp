@@ -8,9 +8,9 @@
 #ifndef COMPONENTS_HPP_
 #define COMPONENTS_HPP_
 #include <SFML/Graphics.hpp>
-
+namespace ex = entityx;
 struct BasePhysics{
-	BasePhysics(const sf::Vector2& position, const sf::Vector2f& direction, float rotation)
+	BasePhysics(const sf::Vector2f& position, const sf::Vector2f& direction, float rotation)
 		: position(position), direction(direction), rotation(rotation) {}
 
 	sf::Vector2f position;
@@ -20,8 +20,11 @@ struct BasePhysics{
 
 
 struct Primitive {
-	explicit Primitive(sf::Shape* shape) : shape(shape) {}
+	explicit Primitive(sf::Shape* shape, sf::Color color) : shape(shape), color(color) {
+		this->shape->setFillColor(this->color);
+	}
 	sf::Shape* shape;
+	sf::Color color;
 };
 
 struct Movement {
