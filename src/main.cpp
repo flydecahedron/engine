@@ -1,5 +1,7 @@
-#include "Application.hpp"
+#include "Game.hpp"
 
 int main(){
-	run();
+	game::run();
+
+	return 0;
 }

@@ -7,18 +7,23 @@
 
 #ifndef RENDERER_HPP_
 #define RENDERER_HPP_
-
-#include "Game.hpp"
+#include <SFML/Graphics.hpp>
 class Renderer{
 public:
-	Renderer(sf::RenderWindow& renderWindow):window(renderWindow){}
-
+	Renderer()
+	:window(){}
+	~Renderer();
 	void draw(const sf::Drawable& drawable);
 	void drawBegin();
 	void drawEnd();
-
+	void closeWindow();
+	bool isOpen();
+	bool pollEvent(sf::Event event);
+	sf::RenderWindow& getWindow(){
+		return window;
+	}
 private:
-	sf::RenderWindow& window;
+	sf::RenderWindow window;
 
 };
 

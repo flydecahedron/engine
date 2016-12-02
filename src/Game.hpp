@@ -13,23 +13,29 @@
 #include "Renderer.hpp"
 #include "Components.hpp"
 namespace ex = entityx;
-class Game{
-public:
 
-	void init(){
+namespace game{
 
+int windowHeight = 800;
+int windowWidth = 600;
+std::string windowTitle = "balls";
+
+static Renderer renderer;
+
+void run(){
+	entityx::EntityX world;
+	while (renderer.getWindow().isOpen()){
+		sf::Event event;
+		while (renderer.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				renderer.closeWindow();
+		}
+		renderer.drawBegin();
+
+		renderer.drawEnd();
 	}
+}// run
 
-	void run();
-
-private:
-
-	sf::RenderWindow window;
-	Renderer renderer;
-	int windowHeight = 800;
-	int windowWidth = 600;
-};
-
-
-
+}// game namespace
 #endif /* GAME_HPP_ */
