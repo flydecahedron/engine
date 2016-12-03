@@ -24,7 +24,7 @@ public:
 		es.each<BasePhysics, Primitive>([this](ex::Entity entity, BasePhysics& basePhysics, Primitive& primitive){
 			std::cout << primitive.shape->getPosition().x << std::endl;
 			primitive.shape->setPosition(basePhysics.position);
-			primitive.shape->setRotation(basePhysics.rotation);
+			//primitive.shape->setRotation(basePhysics.rotation);
 			renderer.draw(*primitive.shape);
 		});
 		renderer.drawEnd();
@@ -49,7 +49,11 @@ public:
 		entity.assign<BasePhysics>(position, direction, rotation);
 		int radius = rand() % 100 + 1;
 		std::shared_ptr<sf::CircleShape> shape = std::make_shared<sf::CircleShape>(radius);
-		entity.assign<Primitive>(std::move(shape), sf::Color::Red);
+		sf::Color color;
+		color.r = rand() % 255 + 1;
+		color.g = rand() % 255 + 1;
+		color.b = rand() % 255 + 1;
+		entity.assign<Primitive>(std::move(shape), color);
 	}
 }; // SpawnSystem class
 
