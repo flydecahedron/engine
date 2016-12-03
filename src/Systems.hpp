@@ -10,8 +10,10 @@
 
 #include <entityx/entityx.h>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Components.hpp"
 #include "Renderer.hpp"
+#include "AudioPlayer.hpp"
 #include <iostream>
 namespace ex = entityx;
 
@@ -54,9 +56,25 @@ public:
 		color.g = rand() % 255 + 1;
 		color.b = rand() % 255 + 1;
 		entity.assign<Primitive>(std::move(shape), color);
+		entity.assign<Sound>("punch.wav");
 	}
 }; // SpawnSystem class
 
+class AudioSystem : public ex::System<AudioSystem> {
+public:
+	explicit AudioSystem(AudioPlayer& audioPlayer)
+	:audioPlayer(audioPlayer){}
 
+	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
+		es.each<Sound>([this](ex::Entity entity, Sound& sound){
+			sf::Sound lSound;
+			lSound.setBuffer(sound.buffer);
+			lSound.setLoop(false);
+			lSound.play();
+		});
+	}
+private:
+	AudioPlayer audioPlayer;
+}; // AudioSystem class
 
 #endif /* SYSTEMS_HPP_ */

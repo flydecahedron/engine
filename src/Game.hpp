@@ -13,15 +13,16 @@
 #include <entityx/entityx.h>
 #include "Renderer.hpp"
 #include "Components.hpp"
-#include "Systems.hpp"
 #include "Level.hpp"
+#include "Systems.hpp"
 namespace ex = entityx;
 
 class Game{
 public:
 	Game()
 	:renderer(),
-	level(renderer) {}
+	 audioPlayer(),
+	level(renderer, audioPlayer) {}
 
 	Renderer& getRenderer() {return renderer; }
 	void run();
@@ -29,6 +30,7 @@ public:
 private:
 	Renderer renderer;
 	Level level;
+	AudioPlayer audioPlayer;
 
 };// game namespace
 #endif /* GAME_HPP_ */

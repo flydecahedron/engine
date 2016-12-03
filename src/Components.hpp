@@ -8,6 +8,7 @@
 #ifndef COMPONENTS_HPP_
 #define COMPONENTS_HPP_
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 namespace ex = entityx;
 struct BasePhysics{
 	BasePhysics(const sf::Vector2f& position, const sf::Vector2f& direction, float rotation)
@@ -50,5 +51,14 @@ struct CollisionEvent {
 
 struct Controllable {
 
+};
+
+struct Sound {
+	explicit Sound(const std::string& filename)
+	: buffer()
+	{
+		buffer.loadFromFile(filename);
+	}
+	sf::SoundBuffer buffer;
 };
 #endif /* COMPONENTS_HPP_ */
