@@ -9,33 +9,26 @@
 #define GAME_HPP_
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <entityx/entityx.h>
 #include "Renderer.hpp"
 #include "Components.hpp"
+#include "Systems.hpp"
+#include "Level.hpp"
 namespace ex = entityx;
 
-namespace game{
+class Game{
+public:
+	Game()
+	:renderer(),
+	level(renderer) {}
 
-int windowHeight = 800;
-int windowWidth = 600;
-std::string windowTitle = "balls";
+	Renderer& getRenderer() {return renderer; }
+	void run();
 
-static Renderer renderer;
+private:
+	Renderer renderer;
+	Level level;
 
-void run(){
-	entityx::EntityX world;
-	while (renderer.getWindow().isOpen()){
-		sf::Event event;
-		while (renderer.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				renderer.closeWindow();
-		}
-		renderer.drawBegin();
-
-		renderer.drawEnd();
-	}
-}// run
-
-}// game namespace
+};// game namespace
 #endif /* GAME_HPP_ */

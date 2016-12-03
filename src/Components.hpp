@@ -20,10 +20,10 @@ struct BasePhysics{
 
 
 struct Primitive {
-	explicit Primitive(std::unique_ptr<sf::Shape> shape, sf::Color color) : shape(std::move(shape)), color(color) {
+	explicit Primitive(std::shared_ptr<sf::Shape> shape, sf::Color color) : shape(std::move(shape)), color(color) {
 		this->shape->setFillColor(this->color);
 	}
-	std::unique_ptr<sf::Shape> shape;
+	std::shared_ptr<sf::Shape> shape;
 	sf::Color color;
 };
 

@@ -1,7 +1,8 @@
 #include "Game.hpp"
+#include <SFML/Window.hpp>
 
-int main(){
-	game::run();
-
-	return 0;
+int main()
+{
+    Game game;
+    game.run();
 }
