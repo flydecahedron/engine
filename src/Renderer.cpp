@@ -7,9 +7,7 @@
 
 #include "Renderer.hpp"
 
-Renderer::~Renderer(){
-	window.close();
-}
+bool Renderer::instantiated;
 
 void Renderer::draw(const sf::Drawable& drawable) {
 	window.draw(drawable);
