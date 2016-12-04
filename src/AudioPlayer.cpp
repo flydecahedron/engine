@@ -7,6 +7,8 @@
 
 #include "AudioPlayer.hpp"
 
+bool AudioPlayer::instantiated;
+
 AudioPlayer::AudioPlayer() {
 	// TODO Auto-generated constructor stub
 
