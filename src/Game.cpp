@@ -7,6 +7,8 @@
 
 #include "Game.hpp"
 
+bool Game::instantiated;
+
 void Game::run(){
 	renderer.getWindow().setFramerateLimit(60);
 	sf::Clock clock;
