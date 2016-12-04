@@ -56,7 +56,7 @@ public:
 		color.g = rand() % 255 + 1;
 		color.b = rand() % 255 + 1;
 		entity.assign<Primitive>(std::move(shape), color);
-		entity.assign<Sound>("punch.wav");
+		entity.assign<Sound>("assets/sounds/punch.wav");
 	}
 }; // SpawnSystem class
 
@@ -74,7 +74,7 @@ public:
 		});
 	}
 private:
-	AudioPlayer audioPlayer;
+	AudioPlayer& audioPlayer;
 }; // AudioSystem class
 
 #endif /* SYSTEMS_HPP_ */
