@@ -9,15 +9,6 @@
 
 bool AudioPlayer::instantiated;
 
-AudioPlayer::AudioPlayer() {
-	// TODO Auto-generated constructor stub
-
-}
-
-AudioPlayer::~AudioPlayer() {
-	// TODO Auto-generated destructor stub
-}
-
 void AudioPlayer::play(sf::Sound& sound) {
 	sound.play();
 }
