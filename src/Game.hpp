@@ -29,8 +29,11 @@ public:
 
 private:
 	Renderer renderer;
-	Level level;
 	AudioPlayer audioPlayer;
+	// Level should be last here so it initializes last.
+	// Its constructor depends on everything else in this class
+	Level level;
+
 
 };// game namespace
 #endif /* GAME_HPP_ */
