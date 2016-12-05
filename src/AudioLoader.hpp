@@ -36,7 +36,7 @@ private:
 	std::unordered_map<std::string, std::string> soundPaths;
 	std::unordered_map<std::string, std::string> musicPaths;
 	std::unordered_map<std::string, sf::SoundBuffer> buffers;
-	std::unordered_map<std::string, sf::Music> music;
+	std::unordered_map<std::string, std::unique_ptr<sf::Music>> musicPtrs;
 
 };
 

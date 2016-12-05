@@ -8,21 +8,23 @@
 #include "AudioLoader.hpp"
 
 void AudioLoader::addSound(const std::string& soundName, const std::string& path) {
-	soundPaths[soundName] = path;
+	soundPaths.emplace(soundName, path);
 }
 
 void AudioLoader::addMusic(const std::string& musicName, const std::string& path){
-	musicPaths[musicName] = path;
+	musicPaths.emplace(musicName, path);
 }
 
 void AudioLoader::loadSound(const std::string& soundName) {
 	sf::SoundBuffer buff;
 	buff.loadFromFile(soundPaths[soundName]);
-	buffers[soundName] = buff;
+	buffers.emplace(soundName, buff);
 }
 
 void AudioLoader::loadMusic(const std::string& musicName){
-
+	std::unique_ptr<sf::Music> musicPtr = std::make_unique<sf::Music>();
+	musicPtr.get()->openFromFile(musicPaths[musicName]);
+	musicPtrs.emplace(musicName, std::move(musicPtr));
 }
 
 void AudioLoader::loadAll() {
@@ -40,11 +42,14 @@ void AudioLoader::freeSound(const std::string& soundName) {
 }
 
 void AudioLoader::freeMusic(const std::string& musicName){
-	music.erase(musicName);
+	musicPtrs.erase(musicName);
 }
 
 void AudioLoader::freeAll() {
 	for(const auto& iter : buffers){
 		buffers.erase(iter.first);
+	}
+	for(const auto& iter : musicPtrs){
+		musicPtrs.erase(iter.first);
 	}
 }
