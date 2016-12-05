@@ -10,6 +10,8 @@
 #include <SFML/Audio.hpp>
 #include "utils/Uncopyable.hpp"
 #include <cassert>
+#include <vector>
+#include "AudioLoader.hpp"
 
 class AudioPlayer : private Uncopyable {
 public:
@@ -17,18 +19,22 @@ public:
 		assert(!instantiated);
 		instantiated = true;
 	}
-	virtual ~AudioPlayer(){
+	~AudioPlayer(){
 		instantiated = false;
 	}
 
-	void play(sf::Sound& sound);
-	void play(sf::Music& music);
-	void stop(sf::Sound& sound);
-	void stop(sf::Music&music);
+	void addSound(std::string name, std::string filePath);
+	void removeSound(std::string name);
+	void addMusic(std::string name, std::string filePath);
+	void removeMusic(std::string name, std::string filePath);
 
+	void play(std::string name); // return a handle? to perform actions on sound(vol, etc)
+	void stop(std::string name);
+	void setVolume(std::string name);
 private:
 	static bool instantiated;
-
+	AudioLoader loader;
+	std::vector<sf::Sound> sounds;
 };
 
 #endif /* AUDIOPLAYER_HPP_ */
