@@ -33,7 +33,7 @@ void AudioLoader::loadAll() {
 	}
 }
 
-sf::SoundBuffer AudioLoader::getBuffer(const std::string& soundName) {
+sf::SoundBuffer& AudioLoader::getBuffer(const std::string& soundName) {
 	return buffers[soundName];
 }
 
