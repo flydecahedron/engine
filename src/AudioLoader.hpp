@@ -14,23 +14,29 @@
 class AudioLoader : private Uncopyable {
 public:
 	AudioLoader()
-	:paths(),
+	:soundPaths(),
+	 musicPaths(),
 	 buffers() {}
 	~AudioLoader(){
-		paths.clear();
+		soundPaths.clear();
 		buffers.clear();
 	}
 
 
-	void addPath(std::string soundName, std::string path);
-	void load(std::string soundName);
+	void addSound(const std::string& soundName, const std::string& path);
+	void addMusic(const std::string& musicName, const std::string& path);
+	void loadSound(const std::string& soundName);
+	void loadMusic(const std::string& musicName);
 	void loadAll();
-	sf::SoundBuffer getBuffer(std::string soundName);
-	void free(std::string soundName);
+	sf::SoundBuffer getBuffer(const std::string& soundName);
+	void freeSound(const std::string& soundName);
+	void freeMusic(const std::string& musicName);
 	void freeAll();
 private:
-	std::unordered_map<std::string, std::string> paths;
+	std::unordered_map<std::string, std::string> soundPaths;
+	std::unordered_map<std::string, std::string> musicPaths;
 	std::unordered_map<std::string, sf::SoundBuffer> buffers;
+	std::unordered_map<std::string, sf::Music> music;
 
 };
 

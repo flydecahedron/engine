@@ -7,28 +7,40 @@
 
 #include "AudioLoader.hpp"
 
-void AudioLoader::addPath(std::string soundName, std::string path) {
-	paths[soundName] = path;
+void AudioLoader::addSound(const std::string& soundName, const std::string& path) {
+	soundPaths[soundName] = path;
 }
 
-void AudioLoader::load(std::string soundName) {
+void AudioLoader::addMusic(const std::string& musicName, const std::string& path){
+	musicPaths[musicName] = path;
+}
+
+void AudioLoader::loadSound(const std::string& soundName) {
 	sf::SoundBuffer buff;
-	buff.loadFromFile(paths[soundName]);
+	buff.loadFromFile(soundPaths[soundName]);
 	buffers[soundName] = buff;
 }
 
+void AudioLoader::loadMusic(const std::string& musicName){
+
+}
+
 void AudioLoader::loadAll() {
-	for(const auto& iter : paths){
-		load(iter.first);
+	for(const auto& iter : soundPaths){
+		loadSound(iter.first);
 	}
 }
 
-sf::SoundBuffer AudioLoader::getBuffer(std::string soundName) {
+sf::SoundBuffer AudioLoader::getBuffer(const std::string& soundName) {
 	return buffers[soundName];
 }
 
-void AudioLoader::free(std::string soundName) {
+void AudioLoader::freeSound(const std::string& soundName) {
 	buffers.erase(soundName);
+}
+
+void AudioLoader::freeMusic(const std::string& musicName){
+	music.erase(musicName);
 }
 
 void AudioLoader::freeAll() {
