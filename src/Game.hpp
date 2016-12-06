@@ -29,6 +29,7 @@ public:
 	{
 		assert(!Game::instantiated);
 		instantiated = true;
+		audioPlayer.addSound("punch","assets/sounds/punch.wav");
 	}
 
 	~Game(){

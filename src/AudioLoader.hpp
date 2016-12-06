@@ -9,6 +9,7 @@
 #define AUDIOLOADER_HPP_
 #include "utils/Uncopyable.hpp"
 #include <unordered_map>
+#include <iostream>
 #include <SFML/Audio.hpp>
 
 class AudioLoader : private Uncopyable {

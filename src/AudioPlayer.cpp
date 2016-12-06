@@ -12,8 +12,10 @@ bool AudioPlayer::instantiated;
 void AudioPlayer::update(double dt){
 	for(std::vector<sf::Sound>::size_type i = 0; i != playingSounds.size(); i++){
 		if(playingSounds[i].getStatus() == sf::Sound::Stopped){
+			std::cout << "sound at" << i << "stopped playing, popping" << std::endl;
 			std::swap(playingSounds[i], playingSounds.back());
 			playingSounds.pop_back();
+
 		}
 	}
 }
@@ -37,7 +39,11 @@ void AudioPlayer::removeMusic(std::string name) {
 }
 
 void AudioPlayer::play(std::string name) {
-	//TODO
+	sf::Sound sound;
+	sound.setBuffer(loader.getBuffer(name));
+	playingSounds.emplace_back(sound);
+	playingSounds.back().play();
+	std::cout << "playing: " << name << std::endl;
 }
 
 void AudioPlayer::stop(std::string name) {

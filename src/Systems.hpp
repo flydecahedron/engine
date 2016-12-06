@@ -14,6 +14,7 @@
 #include "Components.hpp"
 #include "Renderer.hpp"
 #include "AudioPlayer.hpp"
+#include "Events.hpp"
 #include <iostream>
 namespace ex = entityx;
 
@@ -24,7 +25,7 @@ public:
 	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
 		renderer.drawBegin();
 		es.each<BasePhysics, Primitive>([this](ex::Entity entity, BasePhysics& basePhysics, Primitive& primitive){
-			std::cout << primitive.shape->getPosition().x << std::endl;
+			//std::cout << primitive.shape->getPosition().x << std::endl;
 			primitive.shape->setPosition(basePhysics.position);
 			//primitive.shape->setRotation(basePhysics.rotation);
 			renderer.draw(*primitive.shape);
@@ -56,22 +57,24 @@ public:
 		color.g = rand() % 255 + 1;
 		color.b = rand() % 255 + 1;
 		entity.assign<Primitive>(std::move(shape), color);
-		entity.assign<Sound>("assets/sounds/punch.wav");
+		events.emit<PlaySound>("punch");
 	}
 }; // SpawnSystem class
 
-class AudioSystem : public ex::System<AudioSystem> {
+class AudioSystem : public ex::System<AudioSystem>, public ex::Receiver<AudioSystem> {
 public:
 	explicit AudioSystem(AudioPlayer& audioPlayer)
 	:audioPlayer(audioPlayer){}
-
+	void configure(ex::EventManager &events){
+		events.subscribe<PlaySound>(*this);
+	}
 	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
-		es.each<Sound>([this](ex::Entity entity, Sound& sound){
-			sf::Sound lSound;
-			lSound.setBuffer(sound.buffer);
-			lSound.setLoop(false);
-			lSound.play();
-		});
+
+	}
+
+	void receive(const PlaySound &playSound){
+		std::cout << playSound.name << std::endl;
+		audioPlayer.play(playSound.name);
 	}
 private:
 	AudioPlayer& audioPlayer;

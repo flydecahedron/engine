@@ -9,6 +9,7 @@
 
 void AudioLoader::addSound(const std::string& soundName, const std::string& path) {
 	soundPaths.emplace(soundName, path);
+	std::cout << "Added sound: " << soundName << " from path: " << soundPaths[soundName] << std::endl;
 }
 
 void AudioLoader::addMusic(const std::string& musicName, const std::string& path){

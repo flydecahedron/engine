@@ -10,8 +10,11 @@
 
 #include <SFML/Audio.hpp>
 
+//eventually add parameters for all parts of sound that is allowed by the SFML api
 struct PlaySound {
-	explicit PlaySound()
+	explicit PlaySound(std::string name)
+	:name(name) {}
+	std::string name;
 }; // PlaySound struct
 
 

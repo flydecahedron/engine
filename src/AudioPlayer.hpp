@@ -13,6 +13,7 @@
 #include <vector>
 #include <algorithm>
 #include "AudioLoader.hpp"
+#include <iostream>
 
 class AudioPlayer : private Uncopyable {
 public:
@@ -34,6 +35,7 @@ public:
 	void play(std::string name); // return a handle? to perform actions on sound(vol, etc)
 	void stop(std::string name);
 	void setVolume(std::string name);
+
 private:
 	static bool instantiated;
 	AudioLoader loader;
