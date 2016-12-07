@@ -7,5 +7,5 @@ void run(){
 }
 int main()
 {
-    test();
+	run();
 }
