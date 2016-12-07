@@ -27,14 +27,16 @@ public:
 		instantiated = false;
 	}
 	void update(double dt);
-	void addSound(std::string name, std::string filePath);
-	void removeSound(std::string name);
-	void addMusic(std::string name, std::string filePath);
-	void removeMusic(std::string name);
+	void addSound(const std::string& name, const std::string& filePath);
+	void removeSound(const std::string& name);
+	void addMusic(const std::string& name, const std::string& filePath);
+	void removeMusic(const std::string& name);
 
-	void play(std::string name); // return a handle? to perform actions on sound(vol, etc)
-	void stop(std::string name);
-	void setVolume(std::string name);
+	void play(const std::string& name); // return a handle? to perform actions on sound(vol, etc)
+	void play(const std::string& name, const bool& isSimultaneous);
+	void play(const std::string& name, const bool& isSimultaneous, const float& volume);
+	void stop(const std::string& name);
+
 
 private:
 	static bool instantiated;
