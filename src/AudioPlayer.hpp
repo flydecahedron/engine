@@ -11,6 +11,7 @@
 #include "utils/Uncopyable.hpp"
 #include <cassert>
 #include <vector>
+#include <queue>
 #include <algorithm>
 #include "AudioLoader.hpp"
 #include <iostream>
@@ -21,7 +22,8 @@ class AudioPlayer : private Uncopyable {
 public:
 	AudioPlayer()
 	: loader(),
-	  playingSounds(){
+	  playingSounds(),
+	  availableIndices(){
 		assert(!instantiated);
 		instantiated = true;
 		playingSounds.reserve(MaxSounds); // should probs use an array but lazy. Assert is in play()
@@ -43,6 +45,7 @@ private:
 	static bool instantiated;
 	AudioLoader loader;
 	std::vector<sf::Sound> playingSounds;
+	std::queue<unsigned short int> availableIndices;
 };
 
 #endif /* AUDIOPLAYER_HPP_ */

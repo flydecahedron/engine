@@ -10,15 +10,12 @@
 bool AudioPlayer::instantiated;
 
 void AudioPlayer::update(double dt){
-		for(std::vector<sf::Sound>::size_type i = 0; i < playingSounds.size(); i++){
-			if(playingSounds.at(i).getStatus() == sf::Sound::Stopped){
-				if(i +1 != playingSounds.size()){
-					std::swap(playingSounds.at(i), playingSounds.back());
-				}
-				std::cout << "sound at: " << i << " stopped playing, popping" << std::endl;
-				playingSounds.pop_back();
-			}
+	for(std::vector<sf::Sound>::size_type i = 0; i != playingSounds.size(); i++){
+		if(playingSounds.at(i).getStatus() == sf::Sound::Stopped){
+			std::cout << "sound at" << i << "stopped playing" << std::endl;
+			availableIndices.push(i);
 		}
+}
 }
 
 void AudioPlayer::addSound(const std::string& name, const std::string& filePath) {
@@ -44,7 +41,16 @@ void AudioPlayer::play(const std::string& name) {
 	sf::Sound sound;
 	sound.setBuffer(loader.getBuffer(name));
 	assert(playingSounds.size() < MaxSounds);
-	playingSounds.emplace_back(sound);
-	playingSounds.back().play(); //problem child
-	std::cout << "playing: " << name << std::endl;
+	if(availableIndices.empty()){
+		playingSounds.emplace_back(sound);
+		playingSounds.back().play(); //problem child
+		std::cout << "playing: " << playingSounds.back().getStatus() << std::endl;
+	}
+	else {
+		unsigned int index = availableIndices.front();
+		availableIndices.pop();
+		playingSounds.at(index) = sound;
+		playingSounds.at(index).play();
+		std::cout << "playing: " << playingSounds.at(index).getStatus() << std::endl;
+	}
 }
