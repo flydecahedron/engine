@@ -38,6 +38,12 @@ sf::SoundBuffer& AudioLoader::getBuffer(const std::string& soundName) {
 	return buffers[soundName];
 }
 
+sf::SoundBuffer& AudioLoader::newBuffer(const std::string& soundName){
+	sf::SoundBuffer buff;
+	buff = buffers[soundName];
+	return buff;
+}
+
 void AudioLoader::freeSound(const std::string& soundName) {
 	buffers.erase(soundName);
 }

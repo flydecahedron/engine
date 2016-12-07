@@ -30,6 +30,7 @@ public:
 	void loadMusic(const std::string& musicName);
 	void loadAll();
 	sf::SoundBuffer& getBuffer(const std::string& soundName);
+	sf::SoundBuffer& newBuffer(const std::string& soundName);
 	void freeSound(const std::string& soundName);
 	void freeMusic(const std::string& musicName);
 	void freeAll();
