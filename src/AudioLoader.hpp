@@ -30,7 +30,6 @@ public:
 	void loadMusic(const std::string& musicName);
 	void loadAll();
 	sf::SoundBuffer& getBuffer(const std::string& soundName);
-	sf::SoundBuffer& newBuffer(const std::string& soundName);
 	void freeSound(const std::string& soundName);
 	void freeMusic(const std::string& musicName);
 	void freeAll();
@@ -38,7 +37,6 @@ private:
 	std::unordered_map<std::string, std::string> soundPaths;
 	std::unordered_map<std::string, std::string> musicPaths;
 	std::unordered_map<std::string, sf::SoundBuffer> buffers;
-	std::unordered_map<std::string, sf::SoundBuffer> tempBuffers;
 	std::unordered_map<std::string, std::unique_ptr<sf::Music>> musicPtrs;
 
 };

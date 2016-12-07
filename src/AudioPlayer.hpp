@@ -15,6 +15,8 @@
 #include "AudioLoader.hpp"
 #include <iostream>
 
+const int MaxSounds = 200;
+
 class AudioPlayer : private Uncopyable {
 public:
 	AudioPlayer()
@@ -22,6 +24,7 @@ public:
 	  playingSounds(){
 		assert(!instantiated);
 		instantiated = true;
+		playingSounds.reserve(MaxSounds); // should probs use an array but lazy. Assert is in play()
 	}
 	~AudioPlayer(){
 		instantiated = false;
@@ -33,8 +36,6 @@ public:
 	void removeMusic(const std::string& name);
 
 	void play(const std::string& name); // return a handle? to perform actions on sound(vol, etc)
-	void play(const std::string& name, const bool& isSimultaneous);
-	void play(const std::string& name, const bool& isSimultaneous, const float& volume);
 	void stop(const std::string& name);
 
 
