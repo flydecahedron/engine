@@ -26,7 +26,7 @@ public:
 		renderer.drawBegin();
 		es.each<BasePhysics, Primitive>([this](ex::Entity entity, BasePhysics& basePhysics, Primitive& primitive){
 			//std::cout << primitive.shape->getPosition().x << std::endl;
-			primitive.shape->setPosition(basePhysics.position);
+			primitive.shape->setPosition(basePhysics.position.x, basePhysics.position.y);
 			//primitive.shape->setRotation(basePhysics.rotation);
 			renderer.draw(*primitive.shape);
 		});
@@ -43,7 +43,8 @@ public:
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
 		ex::Entity entity = es.create();
-		sf::Vector2f position, direction;
+		sf::Vector3f position;
+		sf::Vector2f direction;
 		position.x = rand() % 600 + 1; // 0 to 600
 		position.y = rand() % 800 + 1; // 0 to 800
 		direction.x = rand() % 600 + 1;

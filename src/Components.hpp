@@ -11,10 +11,10 @@
 #include <SFML/Audio.hpp>
 namespace ex = entityx;
 struct BasePhysics{
-	BasePhysics(const sf::Vector2f& position, const sf::Vector2f& direction, float rotation)
+	BasePhysics(const sf::Vector3f& position, const sf::Vector2f& direction, float rotation)
 		: position(position), direction(direction), rotation(rotation) {}
 
-	sf::Vector2f position;
+	sf::Vector3f position;
 	sf::Vector2f direction;
 	float rotation;
 };
