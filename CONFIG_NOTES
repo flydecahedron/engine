@@ -14,7 +14,7 @@
 #	Added /usr/local/lib to the end of /etc/ld.so.conf
 Entityx installs there so this just tells the linker where to look when running
 the exe.
- 
+
 #
 #		2. Changes Made to Eclipse
 #
@@ -29,6 +29,13 @@ Go to:
 	Project -> Properties -> C/C++ Build -> Settings -> C++ Compiler -> Dialect
 Then add "-std=c++14" to other dialect flags
 
+#	Added eclox from the marketplace
+eclox is just a gui front end for doxyfile editing that opens up in eclipse
+
+#	Added Linux Tools plugin for perf profiling
+see:
+http://wiki.eclipse.org/Linux_Tools_Project/PluginInstallHelp#Installing_Updates_From_the_Linux_Tools_Update_Site
+ 
 #
 #		3. Entityx
 #
