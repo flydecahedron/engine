@@ -18,18 +18,23 @@
 #include "Components.hpp"
 #include "Level.hpp"
 #include "Systems.hpp"
+#include "Audio.hpp"
+#include "Input.hpp"
 namespace ex = entityx;
 
 class Game : private Uncopyable{
 public:
 	Game()
 	:renderer(),
-	 audioPlayer(),
-	level(renderer, audioPlayer)
+	 audio(),
+	 input(),
+	level(renderer, audio)
 	{
 		assert(!Game::instantiated);
 		instantiated = true;
-		audioPlayer.addSound("punch","assets/sounds/punch.wav");
+		audio.addSound("punch","assets/sounds/punch.wav");
+		audio.addMusic("music", "assets/sounds/music.wab");
+
 	}
 
 	~Game(){
@@ -41,7 +46,8 @@ public:
 private:
 	static bool instantiated;
 	Renderer renderer;
-	Audio audioPlayer;
+	Audio audio;
+	Input input;
 	// Level should be last here so it initializes last.
 	// Its constructor depends on everything else in this class
 	Level level;
