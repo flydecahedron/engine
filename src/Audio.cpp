@@ -9,6 +9,22 @@
 
 bool Audio::instantiated;
 
+Audio::Audio()
+	: sounds(),
+	  availableIndices(),
+	  soundPaths(),
+	  musicPaths(),
+	  buffers(),
+	  musicPtrs() {
+		assert(!instantiated);
+		instantiated = true;
+		sounds.reserve(MaxSounds); // should probs use an array but lazy. Assert is in play()
+}
+
+Audio::~Audio(){
+	instantiated = false;
+}
+
 void Audio::update(){
 	for(std::vector<sf::Sound>::size_type i = 0; i != sounds.size(); i++){
 		if(sounds.at(i).getStatus() == sf::Sound::Stopped){
@@ -19,30 +35,34 @@ void Audio::update(){
 }
 
 void Audio::addSound(const std::string& name, const std::string& filePath) {
-	loader.addSound(name, filePath);
-	loader.loadSound(name);
+	soundPaths.emplace(name, filePath);
+	sf::SoundBuffer buff;
+	buff.loadFromFile(soundPaths[name]);
+	buffers.emplace(name, buff);
 }
 
 void Audio::freeSound(const std::string& name) {
-	loader.freeSound(name);
+	buffers.erase(name);
 }
 
 void Audio::addMusic(const std::string& name, const std::string& filePath) {
-	loader.addMusic(name, filePath);
+	musicPaths.emplace(name, filePath);
 }
 
 void Audio::loadMusic(const std::string& name) {
-	 loader.loadMusic(name);
+	std::unique_ptr<sf::Music> musicPtr = std::make_unique<sf::Music>();
+	musicPtr.get()->openFromFile(musicPaths[name]);
+	musicPtrs.emplace(name, std::move(musicPtr));
 }
 
 void Audio::freeMusic(const std::string& name) {
-	loader.freeSound(name);
+	musicPtrs.erase(name);
 }
 
 
 void Audio::playSound(const std::string& name) {
 	sf::Sound sound;
-	sound.setBuffer(loader.getBuffer(name));
+	sound.setBuffer(buffers[name]);
 	assert(sounds.size() < MaxSounds);
 	if(availableIndices.empty()){
 		sounds.emplace_back(sound);
@@ -59,13 +79,13 @@ void Audio::playSound(const std::string& name) {
 }
 
 void Audio::playMusic(const std::string& name) {
-	loader.getMusic(name).play();
+	musicPtrs[name].get()->play();
 }
 
 void Audio::pauseMusic(const std::string& name) {
-	loader.getMusic(name).pause();
+	musicPtrs[name].get()->pause();
 }
 
 void Audio::stopMusic(const std::string& name) {
-	loader.getMusic(name).stop();
+	musicPtrs[name].get()->stop();
 }
