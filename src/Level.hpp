@@ -28,7 +28,7 @@ public :
 		systems.update<RenderSystem>(dt);
 		systems.update<SpawnSystem>(dt);
 		systems.update<AudioSystem>(dt);
-		audioPlayer.update(dt);
+		audioPlayer.update();
 	}
 private:
 	AudioPlayer& audioPlayer;
