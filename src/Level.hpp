@@ -17,11 +17,11 @@ namespace ex = entityx;
 
 class Level : public ex::EntityX{
 public :
-	explicit Level(Renderer& renderer, Audio& audioPlayer)
-		: audioPlayer(audioPlayer){
+	explicit Level(Renderer& renderer, Audio& audio, Input& input)
+		: audioPlayer(audio){
 		systems.add<RenderSystem>(renderer);
 		systems.add<SpawnSystem>();
-		systems.add<AudioSystem>(audioPlayer);
+		systems.add<AudioSystem>(audio);
 		systems.configure();
 	}
 	void update(ex::TimeDelta dt){
