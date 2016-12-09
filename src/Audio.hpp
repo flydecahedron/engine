@@ -29,19 +29,10 @@ public:
 	 * Ensures that only one instance exists and reserves the sounds vector according
 	 * to MaxSounds.
 	 */
-	Audio()
-	: loader(),
-	  sounds(),
-	  availableIndices(){
-		assert(!instantiated);
-		instantiated = true;
-		sounds.reserve(MaxSounds); // should probs use an array but lazy. Assert is in play()
-	}
+	Audio();
 
 	/** allows others instances to be created by setting instantiated to false */
-	~Audio(){
-		instantiated = false;
-	}
+	~Audio();
 
 	/** Checks if sounds are done playing and invalidates sounds if they are.
 	 * Basically, the vector containing all the sounds is iterated through and if the sound status
@@ -129,12 +120,15 @@ public:
 private:
 	/** Ensures only one Audio object is instantiated */
 	static bool instantiated;
-	/** Contains sf::SoundBuffer and file paths by name of sounds */
-	AudioLoader loader;
 	/** Contains all sounds and is asserted to not grow (might be changed to array later). */
 	std::vector<sf::Sound> sounds;
 	/** Indices of sounds container that new sounds can be placed into */
 	std::queue<unsigned short int> availableIndices;
+
+	std::unordered_map<std::string, std::string> soundPaths;
+	std::unordered_map<std::string, std::string> musicPaths;
+	std::unordered_map<std::string, sf::SoundBuffer> buffers;
+	std::unordered_map<std::string, std::unique_ptr<sf::Music>> musicPtrs;
 };
 
 #endif /* AUDIO_HPP_ */
