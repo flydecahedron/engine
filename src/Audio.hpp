@@ -8,6 +8,7 @@
 #include <queue>
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
 
 /** Maximum amount of sounds at any given time. SFML docs state 256 is recommended max */
 const int MaxSounds = 200;

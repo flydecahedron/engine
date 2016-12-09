@@ -10,12 +10,12 @@
 bool Audio::instantiated;
 
 Audio::Audio()
-	: sounds(),
-	  availableIndices(),
-	  soundPaths(),
-	  musicPaths(),
-	  buffers(),
-	  musicPtrs() {
+: sounds(),
+  availableIndices(),
+  soundPaths(),
+  musicPaths(),
+  buffers(),
+  musicPtrs() {
 		assert(!instantiated);
 		instantiated = true;
 		sounds.reserve(MaxSounds); // should probs use an array but lazy. Assert is in play()
