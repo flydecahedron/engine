@@ -13,9 +13,10 @@
 #include <SFML/Audio.hpp>
 #include "Components.hpp"
 #include "Renderer.hpp"
-#include "AudioPlayer.hpp"
 #include "Events.hpp"
 #include <iostream>
+
+#include "Audio.hpp"
 namespace ex = entityx;
 
 class RenderSystem : public ex::System<RenderSystem> {
@@ -64,7 +65,7 @@ public:
 
 class AudioSystem : public ex::System<AudioSystem>, public ex::Receiver<AudioSystem> {
 public:
-	explicit AudioSystem(AudioPlayer& audioPlayer)
+	explicit AudioSystem(Audio& audioPlayer)
 	:audioPlayer(audioPlayer){}
 	void configure(ex::EventManager &events){
 		events.subscribe<PlaySound>(*this);
@@ -75,10 +76,10 @@ public:
 
 	void receive(const PlaySound &playSound){
 		std::cout << playSound.name << std::endl;
-		audioPlayer.play(playSound.name);
+		audioPlayer.playSound(playSound.name);
 	}
 private:
-	AudioPlayer& audioPlayer;
+	Audio& audioPlayer;
 }; // AudioSystem class
 
 #endif /* SYSTEMS_HPP_ */

@@ -1,6 +1,6 @@
 
-#ifndef AUDIOPLAYER_HPP_
-#define AUDIOPLAYER_HPP_
+#ifndef AUDIO_HPP_
+#define AUDIO_HPP_
 #include <SFML/Audio.hpp>
 #include "utils/Uncopyable.hpp"
 #include <cassert>
@@ -16,17 +16,20 @@ const int MaxSounds = 200;
 /**
  * Adds and plays sounds to the game engine by name and filepath.
  * Implemented so that entityx events can be used to tell the AudioSystem to play sounds by
- * passing the name of the sound to the AudioPlayer. When sounds are added by calling addSound(),
+ * passing the name of the sound to its Audio ref. When sounds are added by calling addSound(),
  * the private AudioLoader handles loading the buffer from the given filepath so that the buffer
- * can be accessed by name.
+ * can be accessed by name. Music is handled the same except that loadMusic() needs to be called
+ * first. This is done since music is obviously more heavyweight and if needed the same can be
+ * done for sounds and their sound buffers if optimization is needed (but makes for a less clean
+ * api).
  */
-class AudioPlayer : private Uncopyable {
+class Audio : private Uncopyable {
 public:
 	/**
 	 * Ensures that only one instance exists and reserves the sounds vector according
 	 * to MaxSounds.
 	 */
-	AudioPlayer()
+	Audio()
 	: loader(),
 	  sounds(),
 	  availableIndices(){
@@ -36,7 +39,7 @@ public:
 	}
 
 	/** allows others instances to be created by setting instantiated to false */
-	~AudioPlayer(){
+	~Audio(){
 		instantiated = false;
 	}
 
@@ -66,11 +69,27 @@ public:
 	 * @see AudioLoader
 	 * @param name The same name used when initially adding the sound
 	 */
-	void removeSound(const std::string& name);
+	void freeSound(const std::string& name);
 
+	/**
+	 * Adds the music's file path by name to the game.
+	 * @param name Used to associate the file path with the name given
+	 * @param filePath Location of the music file
+	 */
+	void addMusic(const std::string& name, const std::string& filePath);
 
-	//void addMusic(const std::string& name, const std::string& filePath);
-	//void removeMusic(const std::string& name);
+	/**
+	 * Loads the music into memory.
+	 * unique_ptr is used to contain the music and is owned by AudioLoader.
+	 * @param name Same name used when adding music
+	 */
+	void loadMusic(const std::string& name);
+
+	/**
+	 * Frees the music from memory without deleting the name and associated file path.
+	 * @param name Same name used when adding music
+	 */
+	void freeMusic(const std::string& name);
 
 	/**
 	 * Plays the sound by the given name with default values such as volume, etc.
@@ -86,11 +105,29 @@ public:
 	 * events emitted by the ecs.
 	 * @param name
 	 */
-	void play(const std::string& name); // return a handle? to perform actions on sound(vol, etc)
+	void playSound(const std::string& name); // return a handle? to perform actions on sound(vol, etc)
 	//void stop(const std::string& name);
 
+	/**
+	 * Plays the associated music file from its current position.
+	 * @param name Same name used when adding music
+	 */
+	void playMusic(const std::string& name);
+
+	/**
+	 * Pauses the associated music file at its current position which can be resumed with playMusic().
+	 * @param name Same name used when adding music
+	 */
+	void pauseMusic(const std::string& name);
+
+	/**
+	 * Stops and rewinds the associated music file.
+	 * @param name Same name used when adding music
+	 */
+	void stopMusic(const std::string& name);
+
 private:
-	/** Ensures only one AudioPlayer is instantiated */
+	/** Ensures only one Audio object is instantiated */
 	static bool instantiated;
 	/** Contains sf::SoundBuffer and file paths by name of sounds */
 	AudioLoader loader;
@@ -100,4 +137,4 @@ private:
 	std::queue<unsigned short int> availableIndices;
 };
 
-#endif /* AUDIOPLAYER_HPP_ */
+#endif /* AUDIO_HPP_ */

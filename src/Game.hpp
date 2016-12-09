@@ -41,7 +41,7 @@ public:
 private:
 	static bool instantiated;
 	Renderer renderer;
-	AudioPlayer audioPlayer;
+	Audio audioPlayer;
 	// Level should be last here so it initializes last.
 	// Its constructor depends on everything else in this class
 	Level level;

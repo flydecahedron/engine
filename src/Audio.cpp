@@ -5,11 +5,11 @@
  *      Author: eroc
  */
 
-#include "AudioPlayer.hpp"
+#include "Audio.hpp"
 
-bool AudioPlayer::instantiated;
+bool Audio::instantiated;
 
-void AudioPlayer::update(){
+void Audio::update(){
 	for(std::vector<sf::Sound>::size_type i = 0; i != sounds.size(); i++){
 		if(sounds.at(i).getStatus() == sf::Sound::Stopped){
 			std::cout << "sound at" << i << "stopped playing" << std::endl;
@@ -18,26 +18,29 @@ void AudioPlayer::update(){
 	}
 }
 
-void AudioPlayer::addSound(const std::string& name, const std::string& filePath) {
+void Audio::addSound(const std::string& name, const std::string& filePath) {
 	loader.addSound(name, filePath);
 	loader.loadSound(name);
 }
 
-void AudioPlayer::removeSound(const std::string& name) {
+void Audio::freeSound(const std::string& name) {
 	loader.freeSound(name);
 }
 
-void AudioPlayer::addMusic(const std::string& name, const std::string& filePath) {
+void Audio::addMusic(const std::string& name, const std::string& filePath) {
 	loader.addMusic(name, filePath);
-	loader.loadMusic(name);
 }
 
-void AudioPlayer::removeMusic(const std::string& name) {
+void Audio::loadMusic(const std::string& name) {
+	 loader.loadMusic(name);
+}
+
+void Audio::freeMusic(const std::string& name) {
 	loader.freeSound(name);
 }
 
 
-void AudioPlayer::play(const std::string& name) {
+void Audio::playSound(const std::string& name) {
 	sf::Sound sound;
 	sound.setBuffer(loader.getBuffer(name));
 	assert(sounds.size() < MaxSounds);
@@ -53,4 +56,16 @@ void AudioPlayer::play(const std::string& name) {
 		sounds.at(index).play();
 		std::cout << "playing: " << sounds.at(index).getStatus() << std::endl;
 	}
+}
+
+void Audio::playMusic(const std::string& name) {
+	loader.getMusic(name).play();
+}
+
+void Audio::pauseMusic(const std::string& name) {
+	loader.getMusic(name).pause();
+}
+
+void Audio::stopMusic(const std::string& name) {
+	loader.getMusic(name).stop();
 }

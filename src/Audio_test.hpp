@@ -5,32 +5,36 @@
  *      Author: eroc
  */
 
-#ifndef AUDIOPLAYER_TEST_HPP_
-#define AUDIOPLAYER_TEST_HPP_
+#ifndef AUDIO_TEST_HPP_
+#define AUDIO_TEST_HPP_
 
-#include "AudioPlayer.hpp"
+#include "Audio.hpp"
+
 #include <SFML/System.hpp>
 
 void test(){
 	sf::Clock clock;
 	sf::Time elapsed;
 	elapsed = clock.restart();
-	AudioPlayer audioPlayer;
-	audioPlayer.addSound("punch", "assets/sounds/punch.wav");
-	audioPlayer.play("punch");
-	sf::Time time = sf::seconds(2);
-	audioPlayer.update(elapsed.asSeconds());
+	Audio audio;
+	audio.addSound("punch", "assets/sounds/punch.wav");
+	audio.addMusic("music", "assets/sounds/music.wav");
+	audio.loadMusic("music");
+	audio.playMusic("music");
+	audio.playSound("punch");
+	sf::Time time = sf::seconds(0.1);
+	audio.update();
 	sf::sleep(time);
-	audioPlayer.update(elapsed.asSeconds());
-	audioPlayer.play("punch");
+	audio.update();
+	audio.playSound("punch");
 	sf::sleep(time);
-	audioPlayer.play("punch");
+	audio.playSound("punch");
 	sf::sleep(time);
-	audioPlayer.update(elapsed.asSeconds());
+	audio.update();
 	time = sf::seconds(15);
-	audioPlayer.update(elapsed.asSeconds());
+	audio.update();
 	sf::sleep(time);
-	audioPlayer.update(elapsed.asSeconds());
+	audio.update();
 }
 
 void test2(){
@@ -78,4 +82,4 @@ void test2(){
 }
 
 
-#endif /* AUDIOPLAYER_TEST_HPP_ */
+#endif /* AUDIO_TEST_HPP_ */

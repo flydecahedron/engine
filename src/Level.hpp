@@ -17,7 +17,7 @@ namespace ex = entityx;
 
 class Level : public ex::EntityX{
 public :
-	explicit Level(Renderer& renderer, AudioPlayer& audioPlayer)
+	explicit Level(Renderer& renderer, Audio& audioPlayer)
 		: audioPlayer(audioPlayer){
 		systems.add<RenderSystem>(renderer);
 		systems.add<SpawnSystem>();
@@ -31,7 +31,7 @@ public :
 		audioPlayer.update();
 	}
 private:
-	AudioPlayer& audioPlayer;
+	Audio& audioPlayer;
 
 };
 
