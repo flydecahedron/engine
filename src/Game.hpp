@@ -28,7 +28,7 @@ public:
 	:renderer(),
 	 audio(),
 	 input(),
-	level(renderer, audio)
+	level(renderer, audio, input)
 	{
 		assert(!Game::instantiated);
 		instantiated = true;

@@ -23,6 +23,14 @@ void Input::bind(const sf::Event& userInput, const Command& command) {
 
 }
 
+void Input::poll(sf::Event& event) {
+	currentEvent = event.type;
+}
+
+sf::Event Input::get() {
+	return currentEvent;
+}
+
 Command Input::getBinding(sf::Event& userInput) {
 	return bindings[userInput.type];
 }

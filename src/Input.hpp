@@ -23,11 +23,14 @@ class Input : private Uncopyable {
 public:
 	Input();
 	~Input();
+	void poll(sf::Event& event);
+	sf::Event get();
 	void bind(const sf::Event& userInput, const Command& command);
 	Command getBinding(sf::Event& userInput);
 private:
 	static bool instantiated;
 	std::unordered_map<sf::Event, Command> bindings;
+	sf::Event currentEvent;
 };
 
 #endif /* INPUT_HPP_ */

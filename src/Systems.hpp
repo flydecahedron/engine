@@ -82,4 +82,13 @@ private:
 	Audio& audioPlayer;
 }; // AudioSystem class
 
+class CommandSystem : public ex::System<CommandSystem>{
+	explicit CommandSystem(Input& input)
+	:input(input) {}
+	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
+
+	}
+private:
+	Input& input;
+};
 #endif /* SYSTEMS_HPP_ */
