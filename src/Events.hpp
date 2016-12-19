@@ -9,6 +9,7 @@
 #define EVENTS_HPP_
 
 #include <SFML/Audio.hpp>
+#include "Commands.hpp"
 #include "Input.hpp"
 
 /**
@@ -22,9 +23,9 @@ struct PlaySound {
 }; // PlaySound struct
 
 struct CommandEvent{
-	explicit CommandEvent(Command command)
+	explicit CommandEvent(std::string command)
 	:command(command) {}
-	Command command;
+	std::string command;
 };
 
 #endif /* EVENTS_HPP_ */
