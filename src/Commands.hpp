@@ -7,14 +7,17 @@
 
 #ifndef COMMANDS_HPP_
 #define COMMANDS_HPP_
+#include <vector>
 
-enum class Command{
-	Up,
-	Down,
-	Left,
-	Right,
-	SpawnCircle,
-};
+namespace commands{
+	static std::vector<std::string> names{
+		"Up",
+		"Down",
+		"Left",
+		"Right",
+		"SpawnCircle"
+	};
+}
 
 
 

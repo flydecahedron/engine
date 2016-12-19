@@ -23,7 +23,7 @@
 	bool Action::isActive(sf::Event& event){
 		switch(inputType_){
 		case keyboard:
-			if(event.type == eventType_){
+			if((event.type == eventType_) && (event.key.code = key_)){
 				return true;
 			}
 			else {
@@ -31,7 +31,7 @@
 			}
 			break;
 		case mouse:
-			if(event.type == eventType_){
+			if(event.type == eventType_ && (event.mouseButton.button)){
 				return true;
 			}
 			else{
