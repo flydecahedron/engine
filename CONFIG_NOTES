@@ -6,6 +6,7 @@
 1. Changes Made to Linux
 2. Changes Made to Eclipse
 3. Entityx
+4. TGUI
 
 #
 #		1. Changes Made to Linux
@@ -19,7 +20,7 @@ the exe.
 #		2. Changes Made to Eclipse
 #
 
-#	Added SFML and entityx Libraries to Linker
+#	Added SFML, tgui and entityx Libraries to Linker
 Go to:
 	Project -> Properties -> C/C++ Build -> Settings -> C++ linker -> Libraries
 Then add libraries by their name like "sfml-graphics" (no -l)
@@ -29,6 +30,10 @@ Go to:
 	Project -> Properties -> C/C++ Build -> Settings -> C++ Compiler -> Dialect
 Then add "-std=c++14" to other dialect flags
 
+#	Enabled parallel builds (-j flag with make)
+Go to:
+	Project -> Properties -> C/C++ Build -> Behaviour tab -> Use parallel build checkbox
+	
 #	Added eclox from the marketplace
 eclox is just a gui front end for doxyfile editing that opens up in eclipse
 
@@ -44,3 +49,9 @@ Steps to install:
 1. git clone https://github.com/alecthomas/entityx
 2. replace catch.hpp in /3rdparty with the current header from github
 3. mkdir build | cd build | cmake.. | make | sudo make install
+
+#
+#		4. TGUI
+#
+Arch Linux:
+	yaourt -S tgui-git
