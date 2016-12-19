@@ -23,6 +23,7 @@
 #include "Systems.hpp"
 #include "Audio.hpp"
 #include "Input.hpp"
+#include "Gui.hpp"
 namespace ex = entityx;
 
 class Game : private Uncopyable{

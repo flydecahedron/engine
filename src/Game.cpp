@@ -11,6 +11,7 @@ bool Game::instantiated;
 
 void Game::run(){
 	renderer.getWindow().setFramerateLimit(60);
+	testGuiSetup(gui);
 	sf::Clock clock;
 	while (renderer.isOpen()){
 		sf::Event event;
