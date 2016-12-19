@@ -16,8 +16,10 @@ void Game::run(){
 		sf::Event event;
 		while (renderer.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed){
 				renderer.closeWindow();
+			}
+			input.poll(event);
 		}
 		sf::Time elapsed = clock.restart();
 		level.update(elapsed.asSeconds());
