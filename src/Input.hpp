@@ -19,7 +19,7 @@
 #include <iostream>
 
 /**
- *
+ * Handles input bindings/polling and their respective commands.
  */
 class Input : private Uncopyable {
 public:
@@ -27,10 +27,12 @@ public:
 	~Input();
 	void bind(const Action action, const std::string& command);
 	Action getBinding(const std::string& command);
-	std::vector<std::string> poll(sf::Event& event);
+	void poll(sf::Event& event);
+	std::vector<std::string>& getCommandBuffer();
 private:
 	static bool instantiated_;
 	std::unordered_map<std::string, Action> bindings_;
+	std::vector<std::string> commandBuffer_;
 };
 
 #endif /* INPUT_HPP_ */

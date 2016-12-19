@@ -34,13 +34,20 @@ Action Input::getBinding(const std::string& command) {
 	return bindings_.at(command);
 }
 
-std::vector<std::string> Input::poll(sf::Event& event){
-	std::vector<std::string> tempCommands;
-	tempCommands.reserve(bindings_.size());
+void Input::poll(sf::Event& event){
+	std::cout << "Last frame's command buffer:" << std::endl;
+	for(const auto & command : commandBuffer_){
+		std::cout << command << ", ";
+	}
+	std::cout << std::endl;
 	for(auto& iter : bindings_){
 		if(iter.second.isActive(event)){
-			tempCommands.emplace_back(iter.first);
+			commandBuffer_.emplace_back(iter.first);
+			std::cout << "Action is active for: " << iter.first << " command" << std::endl;
 		}
 	}
-	return tempCommands;
+}
+
+std::vector<std::string>& Input::getCommandBuffer(){
+	return commandBuffer_;
 }
