@@ -22,11 +22,13 @@ public :
 		systems.add<RenderSystem>(renderer);
 		systems.add<SpawnSystem>();
 		systems.add<AudioSystem>(audio);
+		systems.add<CommandSystem>(input);
 		systems.configure();
 	}
 	void update(ex::TimeDelta dt){
-		systems.update<RenderSystem>(dt);
+		systems.update<CommandSystem>(dt);
 		systems.update<SpawnSystem>(dt);
+		systems.update<RenderSystem>(dt);
 		systems.update<AudioSystem>(dt);
 		audioPlayer.update();
 	}
