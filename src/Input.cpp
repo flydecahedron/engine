@@ -7,30 +7,40 @@
 
 #include "Input.hpp"
 
-bool Input::instantiated;
+bool Input::instantiated_;
 
 Input::Input()
-:bindings(){
-	assert(!instantiated);
+:bindings_(){
+	assert(!instantiated_);
+	//bind(sf::Keyboard::W, "Up");
+	//bind(sf::Keyboard::A, "Left");
+	//bindKey(sf::Keyboard::S, "Down");
+	//bindKey(sf::Keyboard::D, "Right");
+	bind(Action(sf::Mouse::Left, sf::Event::MouseButtonPressed), "SpawnCircle");
+	for(const auto& iter : bindings_){
+		std::cout << "key: " << iter.first  << std::endl;
+	}
 }
 
 Input::~Input() {
-	instantiated = false;
+	instantiated_ = false;
 }
 
-void Input::bind(const sf::Event& userInput, const Command& command) {
-	bindings.emplace(userInput.type, command);
-
+void Input::bind(const Action action, const std::string& command) {
+	bindings_.emplace(command, action);
 }
 
-void Input::poll(sf::Event& event) {
-	currentEvent = event.type;
+Action Input::getBinding(const std::string& command) {
+	return bindings_.at(command);
 }
 
-sf::Event Input::get() {
-	return currentEvent;
-}
-
-Command Input::getBinding(sf::Event& userInput) {
-	return bindings[userInput.type];
+std::vector<std::string> Input::poll(sf::Event& event){
+	std::vector<std::string> tempCommands;
+	tempCommands.reserve(bindings_.size());
+	for(auto& iter : bindings_){
+		if(iter.second.isActive(event)){
+			tempCommands.emplace_back(iter.first);
+		}
+	}
+	return tempCommands;
 }
