@@ -14,6 +14,7 @@
 #include "Components.hpp"
 #include "Renderer.hpp"
 #include "Events.hpp"
+#include "Commands.hpp"
 #include <iostream>
 
 #include "Audio.hpp"
@@ -38,29 +39,44 @@ private:
 	Renderer& renderer;
 };// RenderSystem class
 
-class SpawnSystem : public ex::System<SpawnSystem> {
+class SpawnSystem : public ex::System<SpawnSystem>, public ex::Receiver<SpawnSystem> {
 public:
 	explicit SpawnSystem(){}
+	void configure(ex::EventManager &events){
+		events.subscribe<CommandEvent>(*this);
+	}
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
-		ex::Entity entity = es.create();
-		sf::Vector3f position;
-		sf::Vector2f direction;
-		position.x = rand() % 600 + 1; // 0 to 600
-		position.y = rand() % 800 + 1; // 0 to 800
-		direction.x = rand() % 600 + 1;
-		direction.y = rand() % 800 + 1;
-		float rotation = rand() % 360 + 1;
-		entity.assign<BasePhysics>(position, direction, rotation);
-		int radius = rand() % 100 + 1;
-		std::shared_ptr<sf::CircleShape> shape = std::make_shared<sf::CircleShape>(radius);
-		sf::Color color;
-		color.r = rand() % 255 + 1;
-		color.g = rand() % 255 + 1;
-		color.b = rand() % 255 + 1;
-		entity.assign<Primitive>(std::move(shape), color);
-		events.emit<PlaySound>("punch");
+		if(spawnCount_ > 0){
+			ex::Entity entity = es.create();
+			sf::Vector3f position;
+			sf::Vector2f direction;
+			position.x = rand() % 600 + 1; // 0 to 600
+			position.y = rand() % 800 + 1; // 0 to 800
+			direction.x = rand() % 600 + 1;
+			direction.y = rand() % 800 + 1;
+			float rotation = rand() % 360 + 1;
+			entity.assign<BasePhysics>(position, direction, rotation);
+			int radius = rand() % 100 + 1;
+			std::shared_ptr<sf::CircleShape> shape = std::make_shared<sf::CircleShape>(radius);
+			sf::Color color;
+			color.r = rand() % 255 + 1;
+			color.g = rand() % 255 + 1;
+			color.b = rand() % 255 + 1;
+			entity.assign<Primitive>(std::move(shape), color);
+			events.emit<PlaySound>("punch");
+			--spawnCount_;
+		}
 	}
+
+	void receive(const CommandEvent& command){
+		if(command.command == "SpawnCircle"){
+			++spawnCount_;
+		}
+
+	}
+private:
+	int spawnCount_ = 0;
 }; // SpawnSystem class
 
 class AudioSystem : public ex::System<AudioSystem>, public ex::Receiver<AudioSystem> {
@@ -83,10 +99,15 @@ private:
 }; // AudioSystem class
 
 class CommandSystem : public ex::System<CommandSystem>{
+public:
 	explicit CommandSystem(Input& input)
 	:input(input) {}
 	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
-
+		for(const auto& command : input.getCommandBuffer()){// where to get sf::Event from?
+			events.emit<CommandEvent>(command);
+			std::cout << "emmited command: " << command << std::endl;
+		}
+		input.getCommandBuffer().clear();
 	}
 private:
 	Input& input;
