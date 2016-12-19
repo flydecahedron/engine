@@ -20,8 +20,9 @@ public:
 	Action(sf::Keyboard::Key key, sf::Event::EventType eventType);
 	Action(sf::Mouse::Button mouseButton, sf::Event::EventType eventType);
 	~Action();
-	bool isActive();
+	bool isActive(sf::Event& event);
 private:
+	InputType inputType_;
 	sf::Event::EventType eventType_;
 	sf::Keyboard::Key key_;
 	sf::Mouse::Button mouseButton_;
