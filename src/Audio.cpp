@@ -28,7 +28,7 @@ Audio::~Audio(){
 void Audio::update(){
 	for(std::vector<sf::Sound>::size_type i = 0; i != sounds.size(); i++){
 		if(sounds.at(i).getStatus() == sf::Sound::Stopped){
-			std::cout << "sound at" << i << "stopped playing" << std::endl;
+			//std::cout << "sound at" << i << "stopped playing" << std::endl;
 			availableIndices.push(i);
 		}
 	}
