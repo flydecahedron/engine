@@ -20,6 +20,7 @@ void Game::run(){
 				renderer.closeWindow();
 			}
 			input.poll(event);
+			gui.handleEvent(event);
 		}
 		sf::Time elapsed = clock.restart();
 		level.update(elapsed.asSeconds());

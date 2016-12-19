@@ -10,10 +10,13 @@
 
 #include <cassert> // assert one instance exists
 #include "utils/Uncopyable.hpp"
-
+/********* LIBS *****************/
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <entityx/entityx.h>
+#include <TGUI/TGUI.hpp>
+
+/******** ENGINE ***************/
 #include "Renderer.hpp"
 #include "Components.hpp"
 #include "Level.hpp"
@@ -28,7 +31,8 @@ public:
 	:renderer(),
 	 audio(),
 	 input(),
-	level(renderer, audio, input)
+	 gui(renderer.getWindow()),
+	level(renderer, audio, input, gui)
 	{
 		assert(!Game::instantiated);
 		instantiated = true;
@@ -48,10 +52,10 @@ private:
 	Renderer renderer;
 	Audio audio;
 	Input input;
+	tgui::Gui gui;
 	// Level should be last here so it initializes last.
 	// Its constructor depends on everything else in this class
 	Level level;
+};// game class
 
-
-};// game namespace
 #endif /* GAME_HPP_ */

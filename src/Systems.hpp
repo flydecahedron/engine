@@ -11,6 +11,7 @@
 #include <entityx/entityx.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <TGUI/TGUI.hpp>
 #include "Components.hpp"
 #include "Renderer.hpp"
 #include "Events.hpp"
@@ -22,7 +23,9 @@ namespace ex = entityx;
 
 class RenderSystem : public ex::System<RenderSystem> {
 public:
-	explicit RenderSystem(Renderer& renderer) : renderer(renderer) {}
+	explicit RenderSystem(Renderer& renderer, tgui::Gui& gui)
+	:renderer(renderer),
+	 gui(gui){}
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, ex::TimeDelta dt) override {
 		renderer.drawBegin();
@@ -32,11 +35,13 @@ public:
 			//primitive.shape->setRotation(basePhysics.rotation);
 			renderer.draw(*primitive.shape);
 		});
+		gui.draw();
 		renderer.drawEnd();
 	};
 
 private:
 	Renderer& renderer;
+	tgui::Gui& gui;
 };// RenderSystem class
 
 class SpawnSystem : public ex::System<SpawnSystem>, public ex::Receiver<SpawnSystem> {
