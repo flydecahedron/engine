@@ -8,7 +8,6 @@
 #ifndef LEVEL_HPP_
 #define LEVEL_HPP_
 
-#include <entityx/entityx.h>
 #include "Components.hpp"
 #include "Renderer.hpp"
 #include "Systems.hpp"

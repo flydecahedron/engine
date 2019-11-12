@@ -9,7 +9,7 @@
 #define COMPONENTS_HPP_
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-namespace ex = entityx;
+
 struct BasePhysics{
 	BasePhysics(const sf::Vector3f& position, const sf::Vector2f& direction, float rotation)
 		: position(position), direction(direction), rotation(rotation) {}
@@ -44,10 +44,10 @@ struct Collidable {
 	float radius;
 };
 
-struct CollisionEvent {
-	CollisionEvent(ex::Entity left, ex::Entity right) : left(left), right(right) {}
-	ex::Entity left, right;
-};
+//struct CollisionEvent {
+//	CollisionEvent(ex::Entity left, ex::Entity right) : left(left), right(right) {}
+//	ex::Entity left, right;
+//};
 
 struct Controllable {
 

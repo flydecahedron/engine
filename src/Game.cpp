@@ -11,7 +11,7 @@ bool Game::instantiated;
 
 void Game::run(){
 	renderer.getWindow().setFramerateLimit(60);
-	testGuiSetup(gui);
+	//testGuiSetup(gui);
 	sf::Clock clock;
 	while (renderer.isOpen()){
 		sf::Event event;
@@ -21,10 +21,10 @@ void Game::run(){
 				renderer.closeWindow();
 			}
 			input.poll(event);
-			gui.handleEvent(event);
+//			gui.handleEvent(event);
 		}
 		sf::Time elapsed = clock.restart();
-		level.update(elapsed.asSeconds());
+		//level.update(elapsed.asSeconds());
 	}
 }// run
 
