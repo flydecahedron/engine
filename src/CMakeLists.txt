@@ -4,7 +4,8 @@ set(SOURCES Action.cpp
 	Game.cpp
 	Input.cpp
 	main.cpp
-	Renderer.cpp)
+	Renderer.cpp
+	Systems.cpp)
 
 #executable
 set(EXECUTABLE_NAME "flygine")

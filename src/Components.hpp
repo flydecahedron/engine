@@ -10,8 +10,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-struct BasePhysics{
-	BasePhysics(const sf::Vector3f& position, const sf::Vector2f& direction, float rotation)
+struct PhysicsComponent{
+	PhysicsComponent(const sf::Vector3f& position, const sf::Vector2f& direction, float rotation)
 		: position(position), direction(direction), rotation(rotation) {}
 
 	sf::Vector3f position;
@@ -19,7 +19,9 @@ struct BasePhysics{
 	float rotation;
 };
 
-
+//struct SpriteComponent {
+//	sf::Sprite sprite;
+//};
 struct Primitive {
 	explicit Primitive(std::shared_ptr<sf::Shape> shape, sf::Color color) : shape(std::move(shape)), color(color) {
 		this->shape->setFillColor(this->color);

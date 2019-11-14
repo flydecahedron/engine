@@ -6,6 +6,7 @@
  */
 
 #include "Game.hpp"
+#include "Systems.h"
 
 bool Game::instantiated;
 
@@ -21,6 +22,8 @@ void Game::run(){
 				renderer.closeWindow();
 			}
 			input.poll(event);
+			randomSpawner(ecs);
+			drawEntities(ecs, renderer);
 //			gui.handleEvent(event);
 		}
 		sf::Time elapsed = clock.restart();

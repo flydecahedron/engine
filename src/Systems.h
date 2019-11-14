@@ -7,7 +7,11 @@
 
 #ifndef SYSTEMS_HPP_
 #define SYSTEMS_HPP_
-#include <entt/entt.hpp>
+#include <entt/entity/registry.hpp>
+#include "Renderer.hpp"
+
+void drawEntities(entt::registry& ecs, Renderer& renderer);
+void randomSpawner(entt::registry& ecs);
 
 //
 //#include <entityx/entityx.h>

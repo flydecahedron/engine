@@ -14,11 +14,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <TGUI/TGUI.hpp>
+#include <entt/entity/registry.hpp>
 
 /******** ENGINE ***************/
 #include "Renderer.hpp"
-#include "Components.hpp"
-#include "Systems.hpp"
 #include "Audio.hpp"
 #include "Input.hpp"
 //#include "Gui.hpp"
@@ -28,7 +27,8 @@ public:
 	Game()
 	:renderer(),
 	 audio(),
-	 input()
+	 input(),
+	ecs()
 	{
 		assert(!Game::instantiated);
 		instantiated = true;
@@ -48,6 +48,7 @@ private:
 	Renderer renderer;
 	Audio audio;
 	Input input;
+	entt::registry ecs;
 	//tgui::Gui gui;
 
 };// game class
